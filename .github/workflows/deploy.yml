@@ -1,0 +1,20 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+job:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Code
+            uses: actions/checkou@v4
+          - name: Buld Docker Image
+            run: docker build -t website .
+          - name: Run Docker Container
+            run: docker run -d -p 8080:80 website
+          - name: Verify Docker Images
+            run: docker images
+          - name: Verify Docker Process
+            run: docker ps
